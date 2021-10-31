@@ -1,0 +1,12 @@
+export const typeOfCard = {
+  SET_DECK_CARD: "SET_DECK_CARD",
+  REVEAL_CARDS: "REVEAL_CARDS",
+  DRAW_CARDS: "DRAW_CARDS",
+  SHUFFLE_CARDS: "SHUFFLE_CARDS",
+  RESET_GAME: 'RESET_GAME'
+};
+
+export const typeOfPlayer = {
+  ADD_PLAYERS: "ADD_PLAYERS",
+  SET_PLAYERS: "SET_PLAYERS"
+};

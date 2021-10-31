@@ -1,3 +1,5 @@
+import { typeOfPlayer } from "../actions/types";
+
 let initialState = {
   playerList: [
     {
@@ -5,32 +7,32 @@ let initialState = {
       email: "player1@gmail.com",
       phone: "1829839030",
       totalPoint: 25000,
-      cards: [],
+      cards: []
     },
     {
       username: "Player 2",
       email: "player2@gmail.com",
       phone: "8849839939",
       totalPoint: 25000,
-      cards: [],
+      cards: []
     },
     {
       username: "Player 3",
       email: "player3@gmail.com",
       phone: "894589485",
       totalPoint: 25000,
-      cards: [],
-    },
-  ],
+      cards: []
+    }
+  ]
 };
 
 const reducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case "ADD_PLAYERS":
+    case typeOfPlayer.ADD_PLAYERS:
       state.playerList = [...state.playerList, payload];
       return { ...state };
 
-    case "SET_PLAYERS":
+    case typeOfPlayer.SET_PLAYERS:
       state.playerList = payload;
       return { ...state };
 

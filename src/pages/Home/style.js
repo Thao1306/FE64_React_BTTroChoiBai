@@ -5,8 +5,16 @@ const useStyle = makeStyles((theme) => {
     title: {
       backgroundColor: "pink",
       fontSize: 40,
-      fontWeight: theme.typography.fontWeightBold,
+      fontWeight: theme.typography.fontWeightBold
     },
+    notification: {
+      height: "100%",
+      display: "flex",
+      alignContent: "space - around",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center"
+    }
   };
 });
 

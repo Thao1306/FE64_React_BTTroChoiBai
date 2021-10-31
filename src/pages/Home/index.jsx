@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import useStyle from "./style";
+import { typeOfPlayer } from "../../redux/actions/types";
 
 // React hook là những function cho ta sử dụng các tính năng của state, lifecycle =>PHẢI ĐƯỢC ĐẶT TRÊN CÙNG VÀ KO LỒNG TRONG BẤT CỨ HÀM NÀO KHÁC
 const validationSchema = yup.object().shape({
@@ -12,7 +13,7 @@ const validationSchema = yup.object().shape({
   phone: yup
     .string()
     .required("This field is requied")
-    .matches(/^[0-9]+$/, "Invalid phone number!"),
+    .matches(/^[0-9]+$/, "Invalid phone number!")
 });
 
 const Home = () => {
@@ -22,38 +23,38 @@ const Home = () => {
     initialValues: {
       username: "",
       email: "",
-      phone: "",
+      phone: ""
     },
     validationSchema: validationSchema, //có thể viết validationSchema không do biến trùng với key
-    validateOnMount: true, // cho chạy hàm check validationSchema luôn, nên cho chạy luôn vì nếu ko bật thì mới vào ko 
+    validateOnMount: true // cho chạy hàm check validationSchema luôn, nên cho chạy luôn vì nếu ko bật thì mới vào ko
   });
   const setAllTouched = useCallback(() => {
     Object.keys(formik.values).forEach((key) => {
       const a = formik.setFieldTouched(key);
-      console.log(a);
-      console.log(formik.touched);
     });
   }, [formik]);
 
-  const handleSubmit = useCallback((e) => {
-    e.preventDefault();
-    console.log(formik);
-    setAllTouched(); //hàm: truyền cho formik.touch username/email/phone để giá trị formik.touch.username turn true-> hiện thẻ <p> báo lỗi (vì lúc này formik.touch đang rỗng nên formik.touch.username sẽ turn false)
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      setAllTouched(); //hàm: truyền cho formik.touch username/email/phone để giá trị formik.touch.username/email/phone turn true-> hiện thẻ <p> báo lỗi (vì lúc này formik.touch đang rỗng nên formik.touch.username sẽ turn false)
 
-    if (!formik.isValid) return; //check nếu form ko có lỗi (ko có false trong bất kỳ trường nào), thì mới cho vào game
-    dispatch({
-      type: "ADD_PLAYERS",
-      payload: { ...formik.values, totalPoint: 25000, cards: [] },
-    });
+      if (!formik.isValid) return; //check nếu form ko có lỗi (ko có false trong bất kỳ trường nào), thì mới cho vào game
+      dispatch({
+        type: typeOfPlayer.ADD_PLAYERS,
+        payload: { ...formik.values, totalPoint: 25000, cards: [] }
+      });
 
-    setIsGameStart(true);
-  }, [formik, setAllTouched, dispatch,]);
+      setIsGameStart(true);
+    },
+    [formik, setAllTouched, dispatch]
+  );
 
   const setDefaultPlayer = useCallback(() => {
     const defaultPlayer = {
       username: "Thao.Le",
       email: "Thao@gmail.com",
-      phone: "123",
+      phone: "123"
     };
     formik.setValues(defaultPlayer);
   }, [formik]);
@@ -72,7 +73,7 @@ const Home = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "center"
           }}
         >
           <h1 className="diplay-4 mb-5"> Welcome to Pocker Center</h1>
@@ -117,6 +118,7 @@ const Home = () => {
             )}
 
             <button className="btn btn-success">Start new Game</button>
+
             <button
               type="button"
               onClick={setDefaultPlayer}
@@ -124,6 +126,7 @@ const Home = () => {
             >
               Set dafault player
             </button>
+            {/* gắn type là button do để mặc định thì nó hiểu là submit thì sẽ có tác dụng tương tự nút start new game, nên gắn type button để gắn sự kiện onClick thôi */}
           </form>
         </div>
       )}
